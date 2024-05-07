@@ -39,3 +39,18 @@ INSERT INTO cities (name, country, population, area)
 VALUES ('Tokyo', 'Japan', 38505000, 8223);
 ```
 
+To add multiple rows to a table, you can use a single `INSERT` statement with
+
+```sql
+INSERT INTO cities (name, country, population, area)
+VALUES ('Delhi', 'India', 25840000, 573),
+       ('Shanghai', 'China', 23390000, 6340),
+       ('Sao Paulo', 'Brazil', 21846507, 1521),
+       ('Mumbai', 'India', 18410000, 484.5),
+       ('Mexico City', 'Mexico', 17400000, 1485),
+       ('Beijing', 'China', 17311000, 16410),
+       ('Osaka', 'Japan', 16425000, 2230),
+       ('Cairo', 'Egypt', 15600000, 606),
+       ('New York City', 'United States', 19354922, 468.9),
+       ('Dhaka', 'Bangladesh', 15443000, 306);
+```
