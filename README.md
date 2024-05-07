@@ -88,3 +88,23 @@ SELECT title, box_office FROM movies;
 SELECT name, population, area, population / area AS density
 FROM cities;
 ```
+
+## Math Operators
+
+- `+` Addition
+- `-` Subtraction
+- `*` Multiplication
+- `/` Division
+- `%` Modulus
+- `^` Exponentiation
+- `|/` Square root
+- `||/` Cube root
+- `!!` Factorial
+- `@` Absolute value
+- `&` Bitwise AND
+- `|` Bitwise OR
+- `#` Bitwise XOR
+- `~` Bitwise NOT
+- `<<` Bitwise shift left
+- `>>` Bitwise shift right
+ 
