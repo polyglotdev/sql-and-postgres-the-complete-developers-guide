@@ -85,7 +85,7 @@ SELECT title, box_office FROM movies;
 ## Calculated Columns
 
 ```sql
-SELECT name, population, area, population / area AS density
+SELECT name, population, area, population / area AS population_density
 FROM cities;
 ```
 
