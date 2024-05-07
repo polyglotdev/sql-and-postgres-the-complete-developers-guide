@@ -187,3 +187,8 @@ SELECT * FROM cities WHERE country = 'India';
 
 The above query retrieves all rows from the `cities` table where the value of
 column `country` is equal to `India`.
+
+## Order PostgreSQL reads the `WHERE` clause
+1. `FROM` and `JOIN` clauses
+2. `WHERE` clause
+3. `SELECT` clause
