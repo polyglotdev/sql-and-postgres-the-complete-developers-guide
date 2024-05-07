@@ -81,3 +81,10 @@ VALUES ('Avatar', 27879650),
 ```sql
 SELECT title, box_office FROM movies;
 ```
+
+## Calculated Columns
+
+```sql
+SELECT name, population, area, population / area AS density
+FROM cities;
+```
