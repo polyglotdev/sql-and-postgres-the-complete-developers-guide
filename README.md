@@ -107,4 +107,32 @@ FROM cities;
 - `~` Bitwise NOT
 - `<<` Bitwise shift left
 - `>>` Bitwise shift right
- 
+
+## Coding Exercise 2
+
+Take a look at the following table called phones. This 
+table has already been inserted into the database for you.
+
+Write a query that will select the name of each phone and calculate the total revenue for each phone (price X units_sold)
+
+Rename this calculated column to revenue
+
+```sql
+CREATE TABLE phones (
+    name VARCHAR(100),
+    price INTEGER,
+    units_sold INTEGER
+);
+
+INSERT INTO phones (name, price, units_sold)
+VALUES ('iPhone 12', 799, 1000000),
+       ('Galaxy S21', 699, 1500000),
+       ('Pixel 5', 699, 500000),
+       ('OnePlus 9', 699, 300000),
+       ('Xperia 1', 699, 200000);
+```
+
+```sql
+SELECT name, price * units_sold AS revenue
+FROM phones;
+```
