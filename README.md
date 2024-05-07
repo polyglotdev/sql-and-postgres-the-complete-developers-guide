@@ -54,3 +54,10 @@ VALUES ('Delhi', 'India', 25840000, 573),
        ('New York City', 'United States', 19354922, 468.9),
        ('Dhaka', 'Bangladesh', 15443000, 306);
 ```
+
+To retrieve all rows from a table, you can use the `SELECT` statement with the
+`*` wildcard character.
+
+```sql
+SELECT * FROM cities;
+```
