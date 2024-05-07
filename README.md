@@ -4,16 +4,16 @@
 
 ## What is PostgreSQL?
 
-PostgreSQL is a powerful, open-source object-relational database system. It has 
-more than 15 years of active development and a proven architecture that has 
+PostgreSQL is a powerful, open-source object-relational database system. It has
+more than 15 years of active development and a proven architecture that has
 earned it a strong reputation for reliability, data integrity, and correctness.
 
 
 ## Database Design
 
-Database design is the organization of data according to a database model. The 
-designer determines what data must be stored and how the data elements 
-interrelate. With this information, they can begin to fit the data to the 
+Database design is the organization of data according to a database model. The
+designer determines what data must be stored and how the data elements
+interrelate. With this information, they can begin to fit the data to the
 database model.
 
 ## Creating Tables
@@ -64,7 +64,7 @@ SELECT * FROM cities;
 
 ## Project 1
 
-Write a `SELECT` statement that retrieves both rows inserted into the 
+Write a `SELECT` statement that retrieves both rows inserted into the
 `movies` table. Select both `title` and `box_office`` columns.
 
 ```sql
@@ -110,7 +110,7 @@ FROM cities;
 
 ## Coding Exercise 2
 
-Take a look at the following table called phones. This 
+Take a look at the following table called phones. This
 table has already been inserted into the database for you.
 
 Write a query that will select the name of each phone and calculate the total revenue for each phone (price X units_sold)
@@ -173,7 +173,7 @@ FROM phones;
 SELECT * FROM cities WHERE LENGTH(name) > 5;
 ```
 
-The above query retrieves all rows from the `cities` table where the length 
+The above query retrieves all rows from the `cities` table where the length
 of column `name` is greater than 5.
 
 ## `WHERE` Clause
