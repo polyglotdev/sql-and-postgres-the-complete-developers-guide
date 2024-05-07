@@ -61,3 +61,23 @@ To retrieve all rows from a table, you can use the `SELECT` statement with the
 ```sql
 SELECT * FROM cities;
 ```
+
+## Project 1
+
+Write a `SELECT` statement that retrieves both rows inserted into the 
+`movies` table. Select both `title` and `box_office`` columns.
+
+```sql
+CREATE TABLE movies (
+    title VARCHAR(100),
+    box_office INTEGER
+);
+
+INSERT INTO movies (title, box_office)
+VALUES ('Avatar', 27879650),
+       ('Avengers: Endgame', 27978005);
+```
+
+```sql
+SELECT title, box_office FROM movies;
+```
