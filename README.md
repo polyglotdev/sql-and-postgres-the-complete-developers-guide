@@ -136,3 +136,42 @@ VALUES ('iPhone 12', 799, 1000000),
 SELECT name, price * units_sold AS revenue
 FROM phones;
 ```
+
+## String Operators and Functions
+
+- `||` Concatenation
+- `LENGTH` Length
+- `UPPER` Uppercase
+- `LOWER` Lowercase
+- `INITCAP` Capitalize
+- `TRIM` Remove leading and trailing spaces
+- `LTRIM` Remove leading spaces
+- `RTRIM` Remove trailing spaces
+- `REPLACE` Replace a substring
+- `SUBSTRING` Extract a substring
+- `POSITION` Find the position of a substring
+- `LEFT` Extract characters from the left
+- `RIGHT` Extract characters from the right
+- `REPEAT` Repeat a string
+- `REVERSE` Reverse a string
+- `TRANSLATE` Replace multiple characters
+- `TO_CHAR` Convert a number to a string
+- `TO_NUMBER` Convert a string to a number
+- `TO_DATE` Convert a string to a date
+- `TO_TIMESTAMP` Convert a string to a timestamp
+- `TO_TIMESTAMP_TZ` Convert a string to a timestamp with time zone
+- `TO_JSON` Convert a row to JSON
+- `TO_JSONB` Convert a row to JSONB
+- `TO_XML` Convert a row to XML
+- `TO_ASCII` Convert a string to ASCII
+- `TO_HEX` Convert a string to hexadecimal
+- `TO_BASE64` Convert a string to base64
+- `TO_BYTEA` Convert a string to bytea
+- `TO_CLOB` Convert a string to CLOB
+
+```sql
+SELECT * FROM cities WHERE LENGTH(name) > 5;
+```
+
+The above query retrieves all rows from the `cities` table where the length 
+of column `name` is greater than 5.
