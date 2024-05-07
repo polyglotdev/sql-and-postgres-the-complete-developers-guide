@@ -31,3 +31,11 @@ As you can see, the `CREATE TABLE` statement is used to create a new table. The
 table is defined by its name and by the names and data types of its columns. In
 this case, the table is called `cities` and it has four columns: `name`,
 `country`, `population`, and `area`.
+
+## Inserting Data
+
+```sql
+INSERT INTO cities (name, country, population, area)
+VALUES ('Tokyo', 'Japan', 38505000, 8223);
+```
+
