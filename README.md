@@ -16,4 +16,18 @@ designer determines what data must be stored and how the data elements
 interrelate. With this information, they can begin to fit the data to the 
 database model.
 
-## 
+## Creating Tables
+
+```sql
+CREATE TABLE cities (
+    name VARCHAR(100),
+    country VARCHAR(50),
+    population INTEGER,
+    area INTEGER
+);
+```
+
+As you can see, the `CREATE TABLE` statement is used to create a new table. The
+table is defined by its name and by the names and data types of its columns. In
+this case, the table is called `cities` and it has four columns: `name`,
+`country`, `population`, and `area`.
