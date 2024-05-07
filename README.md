@@ -175,3 +175,15 @@ SELECT * FROM cities WHERE LENGTH(name) > 5;
 
 The above query retrieves all rows from the `cities` table where the length 
 of column `name` is greater than 5.
+
+## `WHERE` Clause
+
+The `WHERE` clause is used to filter records. The `WHERE` clause is used to
+extract only those records that fulfill a specified condition.
+
+```sql
+SELECT * FROM cities WHERE country = 'India';
+```
+
+The above query retrieves all rows from the `cities` table where the value of
+column `country` is equal to `India`.
