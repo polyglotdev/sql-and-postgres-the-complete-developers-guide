@@ -309,3 +309,29 @@ The above query updates the `population` column in the `cities` table to
 
 `SET` is used to specify the columns to be updated and the values they should be
 given. `WHERE` is used to specify which rows should be updated.
+
+## Deleting Rows
+
+```sql
+DELETE FROM cities
+WHERE name = 'Tokyo';
+```
+
+The above query deletes all rows from the `cities` table where the value of the
+`name` column is equal to `Tokyo`.
+
+Now lets update cities and add Tokyo back.
+
+```sql
+INSERT INTO cities (name, country, population, area)
+VALUES ('Tokyo', 'Japan', 38505000, 8223);
+```
+
+And lets check to make sure that Tokyo is back in the table.
+
+```sql
+SELECT * FROM cities
+WHERE name = 'Tokyo';
+```
+
+🎆 We did it! 🎆
