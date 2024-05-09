@@ -306,3 +306,6 @@ WHERE name = 'Tokyo';
 
 The above query updates the `population` column in the `cities` table to
 `38,505,000` where the value of the `name` column is equal to `Tokyo`.
+
+`SET` is used to specify the columns to be updated and the values they should be
+given. `WHERE` is used to specify which rows should be updated.
