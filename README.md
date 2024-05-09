@@ -257,3 +257,28 @@ WHERE
 
 The above query retrieves the `name` and `population` columns from the `cities`
 table where the value of column `name` is either `Osaka` or `Tokyo`.
+
+## Exercise 3
+
+Write a query that will print the name and price of all phones that have
+sold more that 5000 units.
+
+```sql
+SELECT name, price
+FROM phones
+WHERE units_sold > 5000;
+```
+
+## Exercise 4
+
+Write a query that will print out the name and price of only Apple and 
+Google phones.
+
+```sql
+SELECT name, price
+FROM phones
+WHERE name IN ('iPhone 12', 'Pixel 5');
+```
+
+Here we are selecting the name and price from phones where name is either
+`iPhone 12` or `Pixel 5`.
