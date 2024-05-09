@@ -282,3 +282,16 @@ WHERE name IN ('iPhone 12', 'Pixel 5');
 
 Here we are selecting the name and price from phones where name is either
 `iPhone 12` or `Pixel 5`.
+
+## Calculations with `WHERE` Clause
+
+```sql
+SELECT name, population, area, population / area AS population_density
+FROM cities
+WHERE population / area > 5000;
+```
+
+We select the `name`, `population`, and `area` columns from the `cities` table
+and calculate the `population_density` column. We then filter the results by
+selecting only the rows where the value of `population_density` is greater than
+5,000.
