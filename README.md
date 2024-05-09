@@ -295,3 +295,14 @@ We select the `name`, `population`, and `area` columns from the `cities` table
 and calculate the `population_density` column. We then filter the results by
 selecting only the rows where the value of `population_density` is greater than
 5,000.
+
+## Updating Rows
+
+```sql
+UPDATE cities
+SET population = 38505000
+WHERE name = 'Tokyo';
+```
+
+The above query updates the `population` column in the `cities` table to
+`38,505,000` where the value of the `name` column is equal to `Tokyo`.
