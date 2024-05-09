@@ -215,3 +215,17 @@ WHERE
 
 The above query retrieves the `name` and `population` columns from the `cities`
 table where the value of column `name` is equal to `Osaka`.
+
+Let's try the `WHERE` and `IN` clauses.
+
+```sql
+SELECT cities.name,
+       cities.population
+FROM
+  cities
+WHERE
+  cities.name IN ('Osaka', 'Tokyo');
+```
+
+The above query retrieves the `name` and `population` columns from the `cities`
+table where the value of column `name` is either `Osaka` or `Tokyo`.
