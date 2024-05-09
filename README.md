@@ -192,3 +192,26 @@ column `country` is equal to `India`.
 1. `FROM` and `JOIN` clauses
 2. `WHERE` clause
 3. `SELECT` clause
+
+## Compound `WHERE` Clauses
+
+```sql
+SELECT * FROM cities 
+         WHERE country = 'India' AND population > 20000000;
+```
+
+The above query retrieves all rows from the `cities` table where the value of
+column `country` is equal to `India` and the value of column `population` is
+greater than 20,000,000.
+
+```sql
+SELECT cities.name,
+       cities.population
+FROM
+  cities
+WHERE
+  cities.name = 'Osaka';
+```
+
+The above query retrieves the `name` and `population` columns from the `cities`
+table where the value of column `name` is equal to `Osaka`.
