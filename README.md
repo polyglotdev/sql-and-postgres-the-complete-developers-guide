@@ -243,3 +243,17 @@ WHERE
 
 The above query retrieves the `name` and `population` columns from the `cities`
 table where the value of column `name` is neither `Osaka` nor `Tokyo`.
+
+Now let's try an `AND` and `OR` clause.
+
+```sql
+SELECT cities.name,
+       cities.population
+FROM
+  cities
+WHERE
+  cities.name = 'Osaka' OR cities.name = 'Tokyo';
+```
+
+The above query retrieves the `name` and `population` columns from the `cities`
+table where the value of column `name` is either `Osaka` or `Tokyo`.
