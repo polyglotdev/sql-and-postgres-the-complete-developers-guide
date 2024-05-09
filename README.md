@@ -229,3 +229,17 @@ WHERE
 
 The above query retrieves the `name` and `population` columns from the `cities`
 table where the value of column `name` is either `Osaka` or `Tokyo`.
+
+We could do the same query again and use the `NOT IN` clause.
+
+```sql
+SELECT cities.name,
+       cities.population
+FROM
+  cities
+WHERE
+  cities.name NOT IN ('Osaka', 'Tokyo');
+```
+
+The above query retrieves the `name` and `population` columns from the `cities`
+table where the value of column `name` is neither `Osaka` nor `Tokyo`.
