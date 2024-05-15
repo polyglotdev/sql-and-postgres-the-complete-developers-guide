@@ -714,3 +714,30 @@ This ensures that every student in the Enrollments table is a valid student from
 Many-to-Many Relationship: Requires a junction table to link the related tables.
 Primary Key: Uniquely identifies each row in a table.
 Foreign Key: Creates a link between two tables and enforces referential integrity.
+
+## Creating and Using Foreign Keys 
+
+You are building a database for a naval shipping company. You need to store a list of boats and crew members who work on each, so you create a table `boats` and a table called `crew_members`. From the perspective of a boat this is a one-to-many relationship.
+
+To complete this design, you need to do two things:
+
+1. Add a column to the `crew_members` table definition that will relate `crew_members` to `boats` You should call the foreign key `boat_id`
+2. Write a query that will fetch all crew_members associated with a boat that has an ID of 1.
+
+```postgresql
+CREATE TABLE boats (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR
+);
+
+-- Insert two Boats
+INSERT INTO boats(name)
+VALUES ('Rouge Wave'), ('Harbor Master');
+
+-- Create table called crew_members
+CREATE TABLE crew_members(
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR,
+                      
+)
+```
