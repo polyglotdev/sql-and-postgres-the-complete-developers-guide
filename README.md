@@ -8,7 +8,6 @@ You can create you PostgreSQL instance in Docker if you are not running Docker l
 ➜ docker run --name udemy_postgres -e POSTGRES_USER=udemy -e POSTGRES_PASSWORD=password -e POSTGRES_DB=udemy -p 5432:5432 -d postgres
 ```
 
-
 ## What is PostgreSQL?
 
 PostgreSQL is a powerful, open-source object-relational database system. It has
@@ -348,4 +347,196 @@ FROM cities
 WHERE name = 'Tokyo';
 ```
 
-🎆 We did it! 🎆
+## Database design
+
+Sure! Let's design a schema for a photo-sharing app that includes the following entities: Users, Photos, Comments, and Likes.
+
+### Entities and Attributes:
+
+1. **Users:**
+   - `UserID` (Primary Key)
+   - `Username`
+   - `Email`
+   - `PasswordHash`
+   - `CreatedAt`
+
+2. **Photos:**
+   - `PhotoID` (Primary Key)
+   - `UserID` (Foreign Key)
+   - `URL`
+   - `Caption`
+   - `CreatedAt`
+
+3. **Comments:**
+   - `CommentID` (Primary Key)
+   - `PhotoID` (Foreign Key)
+   - `UserID` (Foreign Key)
+   - `Text`
+   - `CreatedAt`
+
+4. **Likes:**
+   - `LikeID` (Primary Key)
+   - `PhotoID` (Foreign Key)
+   - `UserID` (Foreign Key)
+   - `CreatedAt`
+
+### Relationships:
+- A **User** can have many **Photos**.
+- A **User** can make many **Comments** on many **Photos**.
+- A **User** can like many **Photos**.
+- A **Photo** can have many **Comments** and many **Likes**.
+
+### Entity-Relationship Diagram (ERD):
+
+```bash
+      +-------------+             +-------------+
+      |    User     |             |    Photo    |
+      +-------------+             +-------------+
+      | UserID (PK) |             | PhotoID (PK)|
+      | Username    |<----------- | UserID (FK) |
+      | Email       |             | URL         |
+      | Password    |             | Caption     |
+      | CreatedAt   |             | CreatedAt   |
+      +-------------+             +-------------+
+             |                            |
+             |                            |
+             |                            |
+             v                            v
+      +-------------+             +-------------+
+      |   Comment   |             |    Like     |
+      +-------------+             +-------------+
+      | CommentID(PK)|            | LikeID(PK)  |
+      | PhotoID (FK) |<---------- | PhotoID(FK) |
+      | UserID  (FK) |            | UserID (FK) |
+      | Text         |            | CreatedAt   |
+      | CreatedAt    |             +-------------+
+      +-------------+
+
+```
+
+```mermaid
+erDiagram
+    USER {
+        int UserID PK
+        string Username
+        string Email
+        string PasswordHash
+        datetime CreatedAt
+    }
+    
+    PHOTO {
+        int PhotoID PK
+        int UserID FK
+        string URL
+        string Caption
+        datetime CreatedAt
+    }
+    
+    COMMENT {
+        int CommentID PK
+        int PhotoID FK
+        int UserID FK
+        string Text
+        datetime CreatedAt
+    }
+    
+    LIKE {
+        int LikeID PK
+        int PhotoID FK
+        int UserID FK
+        datetime CreatedAt
+    }
+    
+    USER ||--o{ PHOTO : uploads
+    USER ||--o{ COMMENT : makes
+    USER ||--o{ LIKE : likes
+    PHOTO ||--o{ COMMENT : receives
+    PHOTO ||--o{ LIKE : receives
+
+```
+
+### Schema in SQL:
+Here's how you can define this schema in SQL:
+
+```sql
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Photos (
+    PhotoID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    URL VARCHAR(255) NOT NULL,
+    Caption TEXT,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Comments (
+    CommentID INT AUTO_INCREMENT PRIMARY KEY,
+    PhotoID INT,
+    UserID INT,
+    Text TEXT NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (PhotoID) REFERENCES Photos(PhotoID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Likes (
+    LikeID INT AUTO_INCREMENT PRIMARY KEY,
+    PhotoID INT,
+    UserID INT,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (PhotoID) REFERENCES Photos(PhotoID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+```
+
+### Explanation:
+
+1. **Users Table:**
+   - `UserID`: Unique identifier for each user.
+   - `Username`: Unique username for each user.
+   - `Email`: Unique email address for each user.
+   - `PasswordHash`: Stores the hashed password for security.
+   - `CreatedAt`: Timestamp when the user account was created.
+2. **Photos Table:**
+   - `PhotoID`: Unique identifier for each photo.
+   - `UserID`: Identifier of the user who uploaded the photo.
+   - `URL`: Location of the photo file.
+   - `Caption`: Optional caption for the photo.
+   - `CreatedAt`: Timestamp when the photo was uploaded.
+3. **Comments Table:**
+   - `CommentID`: Unique identifier for each comment.
+   - `PhotoID`: Identifier of the photo being commented on.
+   - `UserID`: Identifier of the user who made the comment.
+   - `Text`: The content of the comment.
+   - `CreatedAt`: Timestamp when the comment was made.
+4. **Likes Table:**
+   - `LikeID`: Unique identifier for each like.
+   - `PhotoID`: Identifier of the liked photo.
+   - `UserID`: Identifier of the user who liked the photo.
+   - `CreatedAt`: Timestamp when the like was made.
+
+### Indexing:
+To optimize performance, you can create indexes on columns that are frequently queried.
+
+```sql
+CREATE INDEX idx_user_photos ON Photos(UserID);
+CREATE INDEX idx_photo_comments ON Comments(PhotoID);
+CREATE INDEX idx_user_comments ON Comments(UserID);
+CREATE INDEX idx_photo_likes ON Likes(PhotoID);
+CREATE INDEX idx_user_likes ON Likes(UserID);
+```
+
+## One To Many
+
+In a one-to-many relationship, one record in a table can be associated with one or more records in another table. For example, each customer can have many sales orders. In this example the primary key field in the Customers table, Customer ID, is designed to contain unique values.
+
+## Many to One Relationship
+
+A Many to One relation is a type of mathematical relationship between two sets, where each element in the first set maps to a unique element in the second set, but multiple elements in the first set can map to the same element in the second set.
