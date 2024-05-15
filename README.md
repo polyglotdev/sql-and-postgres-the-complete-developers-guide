@@ -2,12 +2,18 @@
 
 [SQL and PostgreSQL: The Complete Developer's Guide](https://www.udemy.com/course/sql-and-postgresql)
 
+You can create you PostgreSQL instance in Docker if you are not running Docker locally on machine with:
+
+```bash
+➜ docker run --name udemy_postgres -e POSTGRES_USER=udemy -e POSTGRES_PASSWORD=password -e POSTGRES_DB=udemy -p 5432:5432 -d postgres
+```
+
+
 ## What is PostgreSQL?
 
 PostgreSQL is a powerful, open-source object-relational database system. It has
 more than 15 years of active development and a proven architecture that has
 earned it a strong reputation for reliability, data integrity, and correctness.
-
 
 ## Database Design
 
@@ -19,11 +25,12 @@ database model.
 ## Creating Tables
 
 ```sql
-CREATE TABLE cities (
-    name VARCHAR(100),
-    country VARCHAR(50),
-    population INTEGER,
-    area INTEGER
+CREATE TABLE cities
+(
+  name       VARCHAR(100),
+  country    VARCHAR(50),
+  population INTEGER,
+  area       INTEGER
 );
 ```
 
@@ -59,7 +66,8 @@ To retrieve all rows from a table, you can use the `SELECT` statement with the
 `*` wildcard character.
 
 ```sql
-SELECT * FROM cities;
+SELECT *
+FROM cities;
 ```
 
 ## Project 1
@@ -68,9 +76,10 @@ Write a `SELECT` statement that retrieves both rows inserted into the
 `movies` table. Select both `title` and `box_office`` columns.
 
 ```sql
-CREATE TABLE movies (
-    title VARCHAR(100),
-    box_office INTEGER
+CREATE TABLE movies
+(
+  title      VARCHAR(100),
+  box_office INTEGER
 );
 
 INSERT INTO movies (title, box_office)
@@ -79,7 +88,8 @@ VALUES ('Avatar', 27879650),
 ```
 
 ```sql
-SELECT title, box_office FROM movies;
+SELECT title, box_office
+FROM movies;
 ```
 
 ## Calculated Columns
@@ -113,15 +123,17 @@ FROM cities;
 Take a look at the following table called phones. This
 table has already been inserted into the database for you.
 
-Write a query that will select the name of each phone and calculate the total revenue for each phone (price X units_sold)
+Write a query that will select the name of each phone and calculate the total revenue for each phone (price X
+units_sold)
 
 Rename this calculated column to revenue
 
 ```sql
-CREATE TABLE phones (
-    name VARCHAR(100),
-    price INTEGER,
-    units_sold INTEGER
+CREATE TABLE phones
+(
+  name       VARCHAR(100),
+  price      INTEGER,
+  units_sold INTEGER
 );
 
 INSERT INTO phones (name, price, units_sold)
@@ -170,7 +182,9 @@ FROM phones;
 - `TO_CLOB` Convert a string to CLOB
 
 ```sql
-SELECT * FROM cities WHERE LENGTH(name) > 5;
+SELECT *
+FROM cities
+WHERE LENGTH(name) > 5;
 ```
 
 The above query retrieves all rows from the `cities` table where the length
@@ -182,13 +196,16 @@ The `WHERE` clause is used to filter records. The `WHERE` clause is used to
 extract only those records that fulfill a specified condition.
 
 ```sql
-SELECT * FROM cities WHERE country = 'India';
+SELECT *
+FROM cities
+WHERE country = 'India';
 ```
 
 The above query retrieves all rows from the `cities` table where the value of
 column `country` is equal to `India`.
 
 ## Order PostgreSQL reads the `WHERE` clause
+
 1. `FROM` and `JOIN` clauses
 2. `WHERE` clause
 3. `SELECT` clause
@@ -196,8 +213,10 @@ column `country` is equal to `India`.
 ## Compound `WHERE` Clauses
 
 ```sql
-SELECT * FROM cities 
-         WHERE country = 'India' AND population > 20000000;
+SELECT *
+FROM cities
+WHERE country = 'India'
+  AND population > 20000000;
 ```
 
 The above query retrieves all rows from the `cities` table where the value of
@@ -207,10 +226,8 @@ greater than 20,000,000.
 ```sql
 SELECT cities.name,
        cities.population
-FROM
-  cities
-WHERE
-  cities.name = 'Osaka';
+FROM cities
+WHERE cities.name = 'Osaka';
 ```
 
 The above query retrieves the `name` and `population` columns from the `cities`
@@ -221,10 +238,8 @@ Let's try the `WHERE` and `IN` clauses.
 ```sql
 SELECT cities.name,
        cities.population
-FROM
-  cities
-WHERE
-  cities.name IN ('Osaka', 'Tokyo');
+FROM cities
+WHERE cities.name IN ('Osaka', 'Tokyo');
 ```
 
 The above query retrieves the `name` and `population` columns from the `cities`
@@ -235,10 +250,8 @@ We could do the same query again and use the `NOT IN` clause.
 ```sql
 SELECT cities.name,
        cities.population
-FROM
-  cities
-WHERE
-  cities.name NOT IN ('Osaka', 'Tokyo');
+FROM cities
+WHERE cities.name NOT IN ('Osaka', 'Tokyo');
 ```
 
 The above query retrieves the `name` and `population` columns from the `cities`
@@ -249,10 +262,9 @@ Now let's try an `AND` and `OR` clause.
 ```sql
 SELECT cities.name,
        cities.population
-FROM
-  cities
-WHERE
-  cities.name = 'Osaka' OR cities.name = 'Tokyo';
+FROM cities
+WHERE cities.name = 'Osaka'
+   OR cities.name = 'Tokyo';
 ```
 
 The above query retrieves the `name` and `population` columns from the `cities`
@@ -271,7 +283,7 @@ WHERE units_sold > 5000;
 
 ## Exercise 4
 
-Write a query that will print out the name and price of only Apple and 
+Write a query that will print out the name and price of only Apple and
 Google phones.
 
 ```sql
@@ -313,7 +325,8 @@ given. `WHERE` is used to specify which rows should be updated.
 ## Deleting Rows
 
 ```sql
-DELETE FROM cities
+DELETE
+FROM cities
 WHERE name = 'Tokyo';
 ```
 
@@ -330,7 +343,8 @@ VALUES ('Tokyo', 'Japan', 38505000, 8223);
 And lets check to make sure that Tokyo is back in the table.
 
 ```sql
-SELECT * FROM cities
+SELECT *
+FROM cities
 WHERE name = 'Tokyo';
 ```
 
