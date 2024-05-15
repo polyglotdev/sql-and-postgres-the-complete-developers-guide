@@ -738,6 +738,8 @@ VALUES ('Rouge Wave'), ('Harbor Master');
 CREATE TABLE crew_members(
   id SERIAL PRIMARY KEY,
   first_name VARCHAR,
-                      
-)
+  last_name VARCHAR,
+  boat_id INT,
+  FOREIGN KEY (boat_id) REFERENCES boats(id)
+);
 ```
