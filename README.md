@@ -533,10 +533,184 @@ CREATE INDEX idx_photo_likes ON Likes(PhotoID);
 CREATE INDEX idx_user_likes ON Likes(UserID);
 ```
 
-## One To Many
 
-In a one-to-many relationship, one record in a table can be associated with one or more records in another table. For example, each customer can have many sales orders. In this example the primary key field in the Customers table, Customer ID, is designed to contain unique values.
+## Many-to-Many Relationship
 
-## Many to One Relationship
+A many-to-many relationship occurs when multiple records in one table are related to multiple records in another table. This is typically implemented using a junction table.
 
-A Many to One relation is a type of mathematical relationship between two sets, where each element in the first set maps to a unique element in the second set, but multiple elements in the first set can map to the same element in the second set.
+**Example Scenario:**
+Consider `Students` and `Courses`. A student can enroll in many courses, and a course can have many students.
+
+**Tables:**
+1. `Students`:
+   - `student_id` (Primary Key)
+   - `student_name`
+2. `Courses`:
+   - `course_id` (Primary Key)
+   - `course_name`
+3. **Junction Table:** 
+   - `Enrollments`:
+      - `student_id` (Foreign Key referencing `Students`)
+      - `course_id` (Foreign Key referencing `Courses`)
+      - (The combination of `student_id` and `course_id` forms a composite primary key)
+
+```sql
+CREATE TABLE Students (
+    student_id SERIAL PRIMARY KEY,
+    student_name VARCHAR(100)
+);
+
+CREATE TABLE Courses (
+    course_id SERIAL PRIMARY KEY,
+    course_name VARCHAR(100)
+);
+
+CREATE TABLE Enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+```
+
+### Many-to-One Relationship
+
+A many-to-one relationship occurs when multiple records in one table are related to a single record in another table. In other words, many rows in the child table reference one row in the parent table.
+
+**Example Scenario:**
+Consider `Orders` and `Customers`. Many orders can be placed by one customer.
+
+**Tables:**
+1. `Customers`:
+   - `customer_id` (Primary Key)
+   - `customer_name`
+2. `Orders`:
+   - `order_id` (Primary Key)
+   - `order_date`
+   - `customer_id` (Foreign Key referencing `Customers`)
+
+```sql
+CREATE TABLE Customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100)
+);
+
+CREATE TABLE Orders (
+    order_id SERIAL PRIMARY KEY,
+    order_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+```
+
+### One-to-One Relationship
+
+A one-to-one relationship occurs when a single record in one table is related to a single record in another table. This can be implemented by making the foreign key in the child table unique.
+
+**Example Scenario:**
+Consider `Users` and `UserProfiles`. Each user has exactly one profile, and each profile belongs to exactly one user.
+
+**Tables:**
+1. `Users`:
+   - `user_id` (Primary Key)
+   - `username`
+2. `UserProfiles`:
+   - `profile_id` (Primary Key)
+   - `user_id` (Foreign Key referencing `Users`, Unique)
+   - `bio`
+
+```sql
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(100)
+);
+
+CREATE TABLE UserProfiles (
+    profile_id SERIAL PRIMARY KEY,
+    user_id INT UNIQUE,
+    bio TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+```
+
+### One-to-Many Relationship
+
+A one-to-many relationship occurs when a single record in one table is related to multiple records in another table. In other words, one row in the parent table is referenced by multiple rows in the child table.
+
+**Example Scenario:**
+Consider `Departments` and `Employees`. One department has many employees.
+
+**Tables:**
+1. `Departments`:
+   - `department_id` (Primary Key)
+   - `department_name`
+2. `Employees`:
+   - `employee_id` (Primary Key)
+   - `employee_name`
+   - `department_id` (Foreign Key referencing `Departments`)
+
+```sql
+CREATE TABLE Departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+CREATE TABLE Employees (
+    employee_id SERIAL PRIMARY KEY,
+    employee_name VARCHAR(100),
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+);
+```
+
+- **Many-to-Many:** Requires a junction table to link two tables with a many-to-many relationship.
+- **Many-to-One:** Many records in the child table reference one record in the parent table.
+- **One-to-One:** One record in a table is related to one and only one record in another table.
+- **One-to-Many:** One record in the parent table is referenced by multiple records in the child table.
+
+## Primary Keys and Foreign Keys
+
+### Primary Key
+
+A primary key is a column (or a set of columns) in a table that uniquely identifies each row in that table. The primary key must contain unique values and cannot contain NULLs.
+
+Example:
+In the Students table, student_id is the primary key. It uniquely identifies each student.
+
+```sql
+Copy code
+CREATE TABLE Students (
+    student_id SERIAL PRIMARY KEY,
+    student_name VARCHAR(100)
+);
+```
+
+### Foreign Key
+
+A foreign key is a column (or a set of columns) in a table that creates a link between the data in two tables. The foreign key in the child table references the primary key in the parent table. This relationship enforces referential integrity, ensuring that the value in the foreign key column must exist in the parent table.
+
+Example:
+In the Enrollments table, student_id is a foreign key referencing student_id in the Students table, and course_id is a foreign key referencing course_id in the Courses table.
+
+```sql
+Copy code
+CREATE TABLE Enrollments (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+```
+
+### Illustration of Foreign Key Constraint:
+
+If you try to insert a student_id in the Enrollments table that does not exist in the Students table, the database will reject the insertion.
+This ensures that every student in the Enrollments table is a valid student from the Students table and every course is a valid course from the Courses table.
+
+### PK And FK Summary
+
+Many-to-Many Relationship: Requires a junction table to link the related tables.
+Primary Key: Uniquely identifies each row in a table.
+Foreign Key: Creates a link between two tables and enforces referential integrity.
